@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.hyTravel.mapper.MyConcernsMapper">
+  <resultMap id="BaseResultMap" type="com.hy.hyTravel.entity.MyConcerns">
+    <id column="CONCERNS_ID" jdbcType="VARCHAR" property="concernsId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="CONCERNS_TYPE" jdbcType="VARCHAR" property="concernsType" />
+    <result column="NOTE_ID" jdbcType="VARCHAR" property="noteId" />
+    <result column="TRAVEL_ID" jdbcType="VARCHAR" property="travelId" />
+    <result column="LEADER_ID" jdbcType="VARCHAR" property="leaderId" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONCERNS_ID, USER_ID, CONCERNS_TYPE, NOTE_ID, TRAVEL_ID, LEADER_ID, CREATED_BY, CREATED_TIME,
+    UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.hyTravel.mapper.MyConcernsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MY_CONCERNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from MY_CONCERNS
+    where CONCERNS_ID = #{concernsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from MY_CONCERNS
+    where CONCERNS_ID = #{concernsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.hyTravel.mapper.MyConcernsExample">
+    delete from MY_CONCERNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.hyTravel.entity.MyConcerns">
+    insert into MY_CONCERNS (CONCERNS_ID, USER_ID, CONCERNS_TYPE,
+      NOTE_ID, TRAVEL_ID, LEADER_ID,
+      CREATED_BY, CREATED_TIME, UPDATED_BY,
+      UPDATED_TIME)
+    values (#{concernsId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{concernsType,jdbcType=VARCHAR},
+      #{noteId,jdbcType=VARCHAR}, #{travelId,jdbcType=VARCHAR}, #{leaderId,jdbcType=VARCHAR},
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.hyTravel.entity.MyConcerns">
+    insert into MY_CONCERNS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="concernsId != null">
+        CONCERNS_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="concernsType != null">
+        CONCERNS_TYPE,
+      </if>
+      <if test="noteId != null">
+        NOTE_ID,
+      </if>
+      <if test="travelId != null">
+        TRAVEL_ID,
+      </if>
+      <if test="leaderId != null">
+        LEADER_ID,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="concernsId != null">
+        #{concernsId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="concernsType != null">
+        #{concernsType,jdbcType=VARCHAR},
+      </if>
+      <if test="noteId != null">
+        #{noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="travelId != null">
+        #{travelId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderId != null">
+        #{leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.hyTravel.mapper.MyConcernsExample" resultType="java.lang.Long">
+    select count(*) from MY_CONCERNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update MY_CONCERNS
+    <set>
+      <if test="record.concernsId != null">
+        CONCERNS_ID = #{record.concernsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.concernsType != null">
+        CONCERNS_TYPE = #{record.concernsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noteId != null">
+        NOTE_ID = #{record.noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelId != null">
+        TRAVEL_ID = #{record.travelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaderId != null">
+        LEADER_ID = #{record.leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update MY_CONCERNS
+    set CONCERNS_ID = #{record.concernsId,jdbcType=VARCHAR},
+    USER_ID = #{record.userId,jdbcType=VARCHAR},
+    CONCERNS_TYPE = #{record.concernsType,jdbcType=VARCHAR},
+    NOTE_ID = #{record.noteId,jdbcType=VARCHAR},
+    TRAVEL_ID = #{record.travelId,jdbcType=VARCHAR},
+    LEADER_ID = #{record.leaderId,jdbcType=VARCHAR},
+    CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+    CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+    UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+    UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.hyTravel.entity.MyConcerns">
+    update MY_CONCERNS
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="concernsType != null">
+        CONCERNS_TYPE = #{concernsType,jdbcType=VARCHAR},
+      </if>
+      <if test="noteId != null">
+        NOTE_ID = #{noteId,jdbcType=VARCHAR},
+      </if>
+      <if test="travelId != null">
+        TRAVEL_ID = #{travelId,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderId != null">
+        LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CONCERNS_ID = #{concernsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.hyTravel.entity.MyConcerns">
+    update MY_CONCERNS
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      CONCERNS_TYPE = #{concernsType,jdbcType=VARCHAR},
+      NOTE_ID = #{noteId,jdbcType=VARCHAR},
+      TRAVEL_ID = #{travelId,jdbcType=VARCHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where CONCERNS_ID = #{concernsId,jdbcType=VARCHAR}
+  </update>
+
+  <!--自定义 查询游记-->
+  <select id="selectTravelNotes" parameterType="com.hy.hyTravel.entity.extend.ConcernsVO" resultType="com.hy.hyTravel.entity.extend.ConcernsVO">
+      SELECT t.NOTE_TEXT title, t.NOTE_IMG img ,c.user_id userId ,c.CONCERNS_ID concernsId,c.CONCERNS_TYPE concernsType,c.NOTE_ID noteId
+      from TRAVEL_NOTES t , MY_CONCERNS c where t.IS_VALID = 'Y'
+and t.VISIBLE_STATUS = 'Y'
+and t.NOTE_ID = c.NOTE_ID
+and c.CONCERNS_TYPE = '1'
+and c.USER_ID = #{record.userId}
+  </select>
+
+  <!--自定义 查询行程-->
+  <select id="selectTravelItinerary" parameterType="com.hy.hyTravel.entity.extend.ConcernsVO" resultType="com.hy.hyTravel.entity.extend.ConcernsVO">
+      SELECT t.TRAVEL_NAME title, null img ,c.user_id userId ,c.CONCERNS_ID concernsId,c.CONCERNS_TYPE concernsType,c.TRAVEL_ID travelId
+      from TRAVEL_ITINERARY t , MY_CONCERNS c where
+t.TRAVEL_ID = c.TRAVEL_ID
+and c.CONCERNS_TYPE = '2'
+and c.USER_ID = #{record.userId}
+  </select>
+  <!--自定义 查询领队-->
+
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.hyTravel.mapper.TravelDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.hy.hyTravel.entity.TravelDetails">
+    <result column="DETAIL_ID" jdbcType="VARCHAR" property="detailId" />
+    <result column="TRAVEL_ID" jdbcType="VARCHAR" property="travelId" />
+    <result column="DETAIL_SORT" jdbcType="VARCHAR" property="detailSort" />
+    <result column="DESTINATION" jdbcType="VARCHAR" property="destination" />
+    <result column="SCENIC_A_ID" jdbcType="VARCHAR" property="scenicAId" />
+    <result column="SCENIC_A_NAME" jdbcType="VARCHAR" property="scenicAName" />
+    <result column="SCENIC_B_ID" jdbcType="VARCHAR" property="scenicBId" />
+    <result column="SCENIC_B_NAME" jdbcType="VARCHAR" property="scenicBName" />
+    <result column="SCENIC_C_ID" jdbcType="VARCHAR" property="scenicCId" />
+    <result column="SCENIC_C_NAME" jdbcType="VARCHAR" property="scenicCName" />
+    <result column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId" />
+    <result column="HOTEL_NAME" jdbcType="VARCHAR" property="hotelName" />
+    <result column="HOTEL_IMG" jdbcType="VARCHAR" property="hotelImg" />
+    <result column="DETAIL_DATE" jdbcType="DATE" property="detailDate" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DETAIL_ID, TRAVEL_ID, DETAIL_SORT, DESTINATION, SCENIC_A_ID, SCENIC_A_NAME, SCENIC_B_ID, 
+    SCENIC_B_NAME, SCENIC_C_ID, SCENIC_C_NAME, HOTEL_ID, HOTEL_NAME, HOTEL_IMG, DETAIL_DATE, 
+    CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.hyTravel.mapper.TravelDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TRAVEL_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hy.hyTravel.mapper.TravelDetailsExample">
+    delete from TRAVEL_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.hyTravel.entity.TravelDetails">
+    insert into TRAVEL_DETAILS (DETAIL_ID, TRAVEL_ID, DETAIL_SORT, 
+      DESTINATION, SCENIC_A_ID, SCENIC_A_NAME, 
+      SCENIC_B_ID, SCENIC_B_NAME, SCENIC_C_ID, 
+      SCENIC_C_NAME, HOTEL_ID, HOTEL_NAME, 
+      HOTEL_IMG, DETAIL_DATE, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{detailId,jdbcType=VARCHAR}, #{travelId,jdbcType=VARCHAR}, #{detailSort,jdbcType=VARCHAR}, 
+      #{destination,jdbcType=VARCHAR}, #{scenicAId,jdbcType=VARCHAR}, #{scenicAName,jdbcType=VARCHAR}, 
+      #{scenicBId,jdbcType=VARCHAR}, #{scenicBName,jdbcType=VARCHAR}, #{scenicCId,jdbcType=VARCHAR}, 
+      #{scenicCName,jdbcType=VARCHAR}, #{hotelId,jdbcType=VARCHAR}, #{hotelName,jdbcType=VARCHAR}, 
+      #{hotelImg,jdbcType=VARCHAR}, #{detailDate,jdbcType=DATE}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.hyTravel.entity.TravelDetails">
+    insert into TRAVEL_DETAILS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        DETAIL_ID,
+      </if>
+      <if test="travelId != null">
+        TRAVEL_ID,
+      </if>
+      <if test="detailSort != null">
+        DETAIL_SORT,
+      </if>
+      <if test="destination != null">
+        DESTINATION,
+      </if>
+      <if test="scenicAId != null">
+        SCENIC_A_ID,
+      </if>
+      <if test="scenicAName != null">
+        SCENIC_A_NAME,
+      </if>
+      <if test="scenicBId != null">
+        SCENIC_B_ID,
+      </if>
+      <if test="scenicBName != null">
+        SCENIC_B_NAME,
+      </if>
+      <if test="scenicCId != null">
+        SCENIC_C_ID,
+      </if>
+      <if test="scenicCName != null">
+        SCENIC_C_NAME,
+      </if>
+      <if test="hotelId != null">
+        HOTEL_ID,
+      </if>
+      <if test="hotelName != null">
+        HOTEL_NAME,
+      </if>
+      <if test="hotelImg != null">
+        HOTEL_IMG,
+      </if>
+      <if test="detailDate != null">
+        DETAIL_DATE,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="travelId != null">
+        #{travelId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailSort != null">
+        #{detailSort,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicAId != null">
+        #{scenicAId,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicAName != null">
+        #{scenicAName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicBId != null">
+        #{scenicBId,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicBName != null">
+        #{scenicBName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCId != null">
+        #{scenicCId,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicCName != null">
+        #{scenicCName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelId != null">
+        #{hotelId,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelName != null">
+        #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelImg != null">
+        #{hotelImg,jdbcType=VARCHAR},
+      </if>
+      <if test="detailDate != null">
+        #{detailDate,jdbcType=DATE},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.hyTravel.mapper.TravelDetailsExample" resultType="java.lang.Long">
+    select count(*) from TRAVEL_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update TRAVEL_DETAILS
+    <set>
+      <if test="record.detailId != null">
+        DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelId != null">
+        TRAVEL_ID = #{record.travelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailSort != null">
+        DETAIL_SORT = #{record.detailSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destination != null">
+        DESTINATION = #{record.destination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicAId != null">
+        SCENIC_A_ID = #{record.scenicAId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicAName != null">
+        SCENIC_A_NAME = #{record.scenicAName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicBId != null">
+        SCENIC_B_ID = #{record.scenicBId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicBName != null">
+        SCENIC_B_NAME = #{record.scenicBName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicCId != null">
+        SCENIC_C_ID = #{record.scenicCId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicCName != null">
+        SCENIC_C_NAME = #{record.scenicCName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelId != null">
+        HOTEL_ID = #{record.hotelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelName != null">
+        HOTEL_NAME = #{record.hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelImg != null">
+        HOTEL_IMG = #{record.hotelImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailDate != null">
+        DETAIL_DATE = #{record.detailDate,jdbcType=DATE},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update TRAVEL_DETAILS
+    set DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      TRAVEL_ID = #{record.travelId,jdbcType=VARCHAR},
+      DETAIL_SORT = #{record.detailSort,jdbcType=VARCHAR},
+      DESTINATION = #{record.destination,jdbcType=VARCHAR},
+      SCENIC_A_ID = #{record.scenicAId,jdbcType=VARCHAR},
+      SCENIC_A_NAME = #{record.scenicAName,jdbcType=VARCHAR},
+      SCENIC_B_ID = #{record.scenicBId,jdbcType=VARCHAR},
+      SCENIC_B_NAME = #{record.scenicBName,jdbcType=VARCHAR},
+      SCENIC_C_ID = #{record.scenicCId,jdbcType=VARCHAR},
+      SCENIC_C_NAME = #{record.scenicCName,jdbcType=VARCHAR},
+      HOTEL_ID = #{record.hotelId,jdbcType=VARCHAR},
+      HOTEL_NAME = #{record.hotelName,jdbcType=VARCHAR},
+      HOTEL_IMG = #{record.hotelImg,jdbcType=VARCHAR},
+      DETAIL_DATE = #{record.detailDate,jdbcType=DATE},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

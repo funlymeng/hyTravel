@@ -1,0 +1,2 @@
+[2019-07-27 16:46:00.212] [restartedMain] [ERROR] com.alibaba.druid.filter.FilterManager - load filter error, filter not found : logback
+[2019-07-27 16:48:20.543] [restartedMain] [ERROR] com.alibaba.druid.filter.FilterManager - load filter error, filter not found : logback

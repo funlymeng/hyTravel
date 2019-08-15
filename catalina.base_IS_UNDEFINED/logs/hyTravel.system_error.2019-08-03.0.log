@@ -1,0 +1,21 @@
+[2019-08-03 12:50:10.599] [restartedMain] [ERROR] o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.redis.timeout' to java.time.Duration:
+
+    Property: spring.redis.timeout
+    Value: 1000 
+    Origin: class path resource [application-dev.properties]:43:22
+    Reason: failed to convert java.lang.String to java.time.Duration
+
+Action:
+
+Update your application's configuration
+
+[2019-08-03 12:51:43.614] [restartedMain] [ERROR] com.alibaba.druid.filter.FilterManager - load filter error, filter not found : logback
+[2019-08-03 12:54:53.295] [restartedMain] [ERROR] com.alibaba.druid.filter.FilterManager - load filter error, filter not found : logback

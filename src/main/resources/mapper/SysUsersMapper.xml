@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.hyTravel.mapper.SysUsersMapper">
+  <resultMap id="BaseResultMap" type="com.hy.hyTravel.entity.SysUsers">
+    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="NICK_NAME" jdbcType="VARCHAR" property="nickName" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_IMG" jdbcType="VARCHAR" property="userImg" />
+    <result column="USER_SEX" jdbcType="VARCHAR" property="userSex" />
+    <result column="USER_AGE" jdbcType="INTEGER" property="userAge" />
+    <result column="UESR_BARTHDAY" jdbcType="DATE" property="uesrBarthday" />
+    <result column="CERTIFICATE_TYPE" jdbcType="VARCHAR" property="certificateType" />
+    <result column="USER_ROLE" jdbcType="INTEGER" property="userRole" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
+    <result column="CERTIFICATE_NUMBER" jdbcType="VARCHAR" property="certificateNumber" />
+    <result column="PHONE_NUMBER" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="USER_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USER_ID, NICK_NAME, USER_NAME, USER_IMG, USER_SEX, USER_AGE, UESR_BARTHDAY, CERTIFICATE_TYPE,
+    USER_ROLE, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME, USER_PWD, CERTIFICATE_NUMBER,
+    PHONE_NUMBER, USER_EMAIL
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.hyTravel.mapper.SysUsersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_USERS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_USERS
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_USERS
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.hyTravel.mapper.SysUsersExample">
+    delete from SYS_USERS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.hyTravel.entity.SysUsers">
+    insert into SYS_USERS (USER_ID, NICK_NAME, USER_NAME,
+      USER_IMG, USER_SEX, USER_AGE,
+      UESR_BARTHDAY, CERTIFICATE_TYPE, USER_ROLE,
+      CREATED_BY, CREATED_TIME, UPDATED_BY,
+      UPDATED_TIME, USER_PWD, CERTIFICATE_NUMBER,
+      PHONE_NUMBER, USER_EMAIL)
+    values (#{userId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+      #{userImg,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER},
+      #{uesrBarthday,jdbcType=DATE}, #{certificateType,jdbcType=VARCHAR}, #{userRole,jdbcType=INTEGER},
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
+      #{updatedTime,jdbcType=TIMESTAMP}, #{userPwd,jdbcType=VARCHAR}, #{certificateNumber,jdbcType=VARCHAR},
+      #{phoneNumber,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.hyTravel.entity.SysUsers">
+    insert into SYS_USERS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="nickName != null">
+        NICK_NAME,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userImg != null">
+        USER_IMG,
+      </if>
+      <if test="userSex != null">
+        USER_SEX,
+      </if>
+      <if test="userAge != null">
+        USER_AGE,
+      </if>
+      <if test="uesrBarthday != null">
+        UESR_BARTHDAY,
+      </if>
+      <if test="certificateType != null">
+        CERTIFICATE_TYPE,
+      </if>
+      <if test="userRole != null">
+        USER_ROLE,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+      <if test="userPwd != null">
+        USER_PWD,
+      </if>
+      <if test="certificateNumber != null">
+        CERTIFICATE_NUMBER,
+      </if>
+      <if test="phoneNumber != null">
+        PHONE_NUMBER,
+      </if>
+      <if test="userEmail != null">
+        USER_EMAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userImg != null">
+        #{userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="uesrBarthday != null">
+        #{uesrBarthday,jdbcType=DATE},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNumber != null">
+        #{certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.hyTravel.mapper.SysUsersExample" resultType="java.lang.Long">
+    select count(*) from SYS_USERS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_USERS
+    <set>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null">
+        NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userImg != null">
+        USER_IMG = #{record.userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        USER_SEX = #{record.userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAge != null">
+        USER_AGE = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.uesrBarthday != null">
+        UESR_BARTHDAY = #{record.uesrBarthday,jdbcType=DATE},
+      </if>
+      <if test="record.certificateType != null">
+        CERTIFICATE_TYPE = #{record.certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null">
+        USER_ROLE = #{record.userRole,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userPwd != null">
+        USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateNumber != null">
+        CERTIFICATE_NUMBER = #{record.certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNumber != null">
+        PHONE_NUMBER = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null">
+        USER_EMAIL = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_USERS
+    set USER_ID = #{record.userId,jdbcType=VARCHAR},
+    NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+    USER_NAME = #{record.userName,jdbcType=VARCHAR},
+    USER_IMG = #{record.userImg,jdbcType=VARCHAR},
+    USER_SEX = #{record.userSex,jdbcType=VARCHAR},
+    USER_AGE = #{record.userAge,jdbcType=INTEGER},
+    UESR_BARTHDAY = #{record.uesrBarthday,jdbcType=DATE},
+    CERTIFICATE_TYPE = #{record.certificateType,jdbcType=VARCHAR},
+    USER_ROLE = #{record.userRole,jdbcType=INTEGER},
+    CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+    CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+    UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+    UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+    USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
+    CERTIFICATE_NUMBER = #{record.certificateNumber,jdbcType=VARCHAR},
+    PHONE_NUMBER = #{record.phoneNumber,jdbcType=VARCHAR},
+    USER_EMAIL = #{record.userEmail,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.hyTravel.entity.SysUsers">
+    update SYS_USERS
+    <set>
+      <if test="nickName != null">
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userImg != null">
+        USER_IMG = #{userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        USER_SEX = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        USER_AGE = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="uesrBarthday != null">
+        UESR_BARTHDAY = #{uesrBarthday,jdbcType=DATE},
+      </if>
+      <if test="certificateType != null">
+        CERTIFICATE_TYPE = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        USER_ROLE = #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPwd != null">
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNumber != null">
+        CERTIFICATE_NUMBER = #{certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.hyTravel.entity.SysUsers">
+    update SYS_USERS
+    set NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_IMG = #{userImg,jdbcType=VARCHAR},
+      USER_SEX = #{userSex,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=INTEGER},
+      UESR_BARTHDAY = #{uesrBarthday,jdbcType=DATE},
+      CERTIFICATE_TYPE = #{certificateType,jdbcType=VARCHAR},
+      USER_ROLE = #{userRole,jdbcType=INTEGER},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      CERTIFICATE_NUMBER = #{certificateNumber,jdbcType=VARCHAR},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      USER_EMAIL = #{userEmail,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

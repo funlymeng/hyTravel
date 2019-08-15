@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.hyTravel.mapper.DiningHallMapper">
+  <resultMap id="BaseResultMap" type="com.hy.hyTravel.entity.DiningHall">
+    <id column="DINING_ID" jdbcType="VARCHAR" property="diningId" />
+    <result column="DINING_NAME" jdbcType="VARCHAR" property="diningName" />
+    <result column="SCENIC_ID" jdbcType="VARCHAR" property="scenicId" />
+    <result column="DINING_IMG" jdbcType="VARCHAR" property="diningImg" />
+    <result column="DINING_RECOMMEND" jdbcType="VARCHAR" property="diningRecommend" />
+    <result column="IS_VALID" jdbcType="VARCHAR" property="isValid" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DINING_ID, DINING_NAME, SCENIC_ID, DINING_IMG, DINING_RECOMMEND, IS_VALID, CREATED_BY, 
+    CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.hyTravel.mapper.DiningHallExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DINING_HALL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DINING_HALL
+    where DINING_ID = #{diningId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DINING_HALL
+    where DINING_ID = #{diningId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.hyTravel.mapper.DiningHallExample">
+    delete from DINING_HALL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.hyTravel.entity.DiningHall">
+    insert into DINING_HALL (DINING_ID, DINING_NAME, SCENIC_ID, 
+      DINING_IMG, DINING_RECOMMEND, IS_VALID, 
+      CREATED_BY, CREATED_TIME, UPDATED_BY, 
+      UPDATED_TIME)
+    values (#{diningId,jdbcType=VARCHAR}, #{diningName,jdbcType=VARCHAR}, #{scenicId,jdbcType=VARCHAR}, 
+      #{diningImg,jdbcType=VARCHAR}, #{diningRecommend,jdbcType=VARCHAR}, #{isValid,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.hyTravel.entity.DiningHall">
+    insert into DINING_HALL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="diningId != null">
+        DINING_ID,
+      </if>
+      <if test="diningName != null">
+        DINING_NAME,
+      </if>
+      <if test="scenicId != null">
+        SCENIC_ID,
+      </if>
+      <if test="diningImg != null">
+        DINING_IMG,
+      </if>
+      <if test="diningRecommend != null">
+        DINING_RECOMMEND,
+      </if>
+      <if test="isValid != null">
+        IS_VALID,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="diningId != null">
+        #{diningId,jdbcType=VARCHAR},
+      </if>
+      <if test="diningName != null">
+        #{diningName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicId != null">
+        #{scenicId,jdbcType=VARCHAR},
+      </if>
+      <if test="diningImg != null">
+        #{diningImg,jdbcType=VARCHAR},
+      </if>
+      <if test="diningRecommend != null">
+        #{diningRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.hyTravel.mapper.DiningHallExample" resultType="java.lang.Long">
+    select count(*) from DINING_HALL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DINING_HALL
+    <set>
+      <if test="record.diningId != null">
+        DINING_ID = #{record.diningId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diningName != null">
+        DINING_NAME = #{record.diningName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicId != null">
+        SCENIC_ID = #{record.scenicId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diningImg != null">
+        DINING_IMG = #{record.diningImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diningRecommend != null">
+        DINING_RECOMMEND = #{record.diningRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        IS_VALID = #{record.isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DINING_HALL
+    set DINING_ID = #{record.diningId,jdbcType=VARCHAR},
+      DINING_NAME = #{record.diningName,jdbcType=VARCHAR},
+      SCENIC_ID = #{record.scenicId,jdbcType=VARCHAR},
+      DINING_IMG = #{record.diningImg,jdbcType=VARCHAR},
+      DINING_RECOMMEND = #{record.diningRecommend,jdbcType=VARCHAR},
+      IS_VALID = #{record.isValid,jdbcType=VARCHAR},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.hyTravel.entity.DiningHall">
+    update DINING_HALL
+    <set>
+      <if test="diningName != null">
+        DINING_NAME = #{diningName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicId != null">
+        SCENIC_ID = #{scenicId,jdbcType=VARCHAR},
+      </if>
+      <if test="diningImg != null">
+        DINING_IMG = #{diningImg,jdbcType=VARCHAR},
+      </if>
+      <if test="diningRecommend != null">
+        DINING_RECOMMEND = #{diningRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        IS_VALID = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DINING_ID = #{diningId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.hyTravel.entity.DiningHall">
+    update DINING_HALL
+    set DINING_NAME = #{diningName,jdbcType=VARCHAR},
+      SCENIC_ID = #{scenicId,jdbcType=VARCHAR},
+      DINING_IMG = #{diningImg,jdbcType=VARCHAR},
+      DINING_RECOMMEND = #{diningRecommend,jdbcType=VARCHAR},
+      IS_VALID = #{isValid,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where DINING_ID = #{diningId,jdbcType=VARCHAR}
+  </update>
+</mapper>

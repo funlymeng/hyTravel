@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.hyTravel.mapper.ScenicSpotMapper">
+  <resultMap id="BaseResultMap" type="com.hy.hyTravel.entity.ScenicSpot">
+    <id column="SCENIC_ID" jdbcType="VARCHAR" property="scenicId" />
+    <result column="SCENIC_NAME" jdbcType="VARCHAR" property="scenicName" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="CITY_CODE" jdbcType="VARCHAR" property="cityCode" />
+    <result column="SCENIC_PRICE" jdbcType="DECIMAL" property="scenicPrice" />
+    <result column="SCENIC_IMG" jdbcType="VARCHAR" property="scenicImg" />
+    <result column="SCENIC_RECOMMEND" jdbcType="VARCHAR" property="scenicRecommend" />
+    <result column="IS_VALID" jdbcType="VARCHAR" property="isValid" />
+    <result column="GATHERING_DISTANCE" jdbcType="DECIMAL" property="gatheringDistance" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCENIC_ID, SCENIC_NAME, PROVINCE_CODE, CITY_CODE, SCENIC_PRICE, SCENIC_IMG, SCENIC_RECOMMEND, 
+    IS_VALID, GATHERING_DISTANCE, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.hy.hyTravel.mapper.ScenicSpotExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SCENIC_SPOT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SCENIC_SPOT
+    where SCENIC_ID = #{scenicId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SCENIC_SPOT
+    where SCENIC_ID = #{scenicId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hy.hyTravel.mapper.ScenicSpotExample">
+    delete from SCENIC_SPOT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hy.hyTravel.entity.ScenicSpot">
+    insert into SCENIC_SPOT (SCENIC_ID, SCENIC_NAME, PROVINCE_CODE, 
+      CITY_CODE, SCENIC_PRICE, SCENIC_IMG, 
+      SCENIC_RECOMMEND, IS_VALID, GATHERING_DISTANCE, 
+      CREATED_BY, CREATED_TIME, UPDATED_BY, 
+      UPDATED_TIME)
+    values (#{scenicId,jdbcType=VARCHAR}, #{scenicName,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{scenicPrice,jdbcType=DECIMAL}, #{scenicImg,jdbcType=VARCHAR}, 
+      #{scenicRecommend,jdbcType=VARCHAR}, #{isValid,jdbcType=VARCHAR}, #{gatheringDistance,jdbcType=DECIMAL}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.hyTravel.entity.ScenicSpot">
+    insert into SCENIC_SPOT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        SCENIC_ID,
+      </if>
+      <if test="scenicName != null">
+        SCENIC_NAME,
+      </if>
+      <if test="provinceCode != null">
+        PROVINCE_CODE,
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE,
+      </if>
+      <if test="scenicPrice != null">
+        SCENIC_PRICE,
+      </if>
+      <if test="scenicImg != null">
+        SCENIC_IMG,
+      </if>
+      <if test="scenicRecommend != null">
+        SCENIC_RECOMMEND,
+      </if>
+      <if test="isValid != null">
+        IS_VALID,
+      </if>
+      <if test="gatheringDistance != null">
+        GATHERING_DISTANCE,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        #{scenicId,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPrice != null">
+        #{scenicPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="scenicImg != null">
+        #{scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicRecommend != null">
+        #{scenicRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="gatheringDistance != null">
+        #{gatheringDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hy.hyTravel.mapper.ScenicSpotExample" resultType="java.lang.Long">
+    select count(*) from SCENIC_SPOT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SCENIC_SPOT
+    <set>
+      <if test="record.scenicId != null">
+        SCENIC_ID = #{record.scenicId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicName != null">
+        SCENIC_NAME = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceCode != null">
+        PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null">
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicPrice != null">
+        SCENIC_PRICE = #{record.scenicPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.scenicImg != null">
+        SCENIC_IMG = #{record.scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicRecommend != null">
+        SCENIC_RECOMMEND = #{record.scenicRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        IS_VALID = #{record.isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatheringDistance != null">
+        GATHERING_DISTANCE = #{record.gatheringDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SCENIC_SPOT
+    set SCENIC_ID = #{record.scenicId,jdbcType=VARCHAR},
+      SCENIC_NAME = #{record.scenicName,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      SCENIC_PRICE = #{record.scenicPrice,jdbcType=DECIMAL},
+      SCENIC_IMG = #{record.scenicImg,jdbcType=VARCHAR},
+      SCENIC_RECOMMEND = #{record.scenicRecommend,jdbcType=VARCHAR},
+      IS_VALID = #{record.isValid,jdbcType=VARCHAR},
+      GATHERING_DISTANCE = #{record.gatheringDistance,jdbcType=DECIMAL},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.hyTravel.entity.ScenicSpot">
+    update SCENIC_SPOT
+    <set>
+      <if test="scenicName != null">
+        SCENIC_NAME = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPrice != null">
+        SCENIC_PRICE = #{scenicPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="scenicImg != null">
+        SCENIC_IMG = #{scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicRecommend != null">
+        SCENIC_RECOMMEND = #{scenicRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        IS_VALID = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="gatheringDistance != null">
+        GATHERING_DISTANCE = #{gatheringDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SCENIC_ID = #{scenicId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.hyTravel.entity.ScenicSpot">
+    update SCENIC_SPOT
+    set SCENIC_NAME = #{scenicName,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      SCENIC_PRICE = #{scenicPrice,jdbcType=DECIMAL},
+      SCENIC_IMG = #{scenicImg,jdbcType=VARCHAR},
+      SCENIC_RECOMMEND = #{scenicRecommend,jdbcType=VARCHAR},
+      IS_VALID = #{isValid,jdbcType=VARCHAR},
+      GATHERING_DISTANCE = #{gatheringDistance,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where SCENIC_ID = #{scenicId,jdbcType=VARCHAR}
+  </update>
+</mapper>
